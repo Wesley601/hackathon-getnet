@@ -16,3 +16,12 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+$router->get('/transactions', 'TransactionController@all');
+$router->get('/transactions/{id}', 'TransactionController@find');
+$router->post('/transactions', 'TransactionController@create');
+$router->post('/recurrent-transactions', 'TransactionController@createRecurrent');
+$router->put('/transactions/{id}', 'TransactionController@update');
+$router->delete('/transactions/{id}', 'TransactionController@delete');
+
+$router->post('/goals', 'GoalController@check');
