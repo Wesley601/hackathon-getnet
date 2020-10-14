@@ -1,0 +1,48 @@
+version: '3'
+
+services:
+  lumen-app:
+    build: .
+    restart: always
+    container_name: meiday-api
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./:/var/www/app
+    networks:
+      - app-networks
+    environment:
+      XDEBUG_ENABLED: "true"
+  db:
+    image: postgres:latest
+    restart: always
+    container_name: meiday-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: Postgres2020
+    networks:
+      - app-networks
+    volumes:
+      - ./data/postgresql:/var/lib/postgresql/data
+  cache:
+    image: redis:latest
+    restart: always
+    container_name: meiday-redis
+    ports:
+      - 6379:6379
+    networks:
+      - app-networks
+  adminer:
+    image: dpage/pgadmin4
+    ports:
+      - 15432:80
+    environment:
+      PGADMIN_DEFAULT_EMAIL: wesleypassos601@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: PgAdmin2020
+    networks:
+      - app-networks
+
+networks:
+  app-networks:
+    driver: bridge
