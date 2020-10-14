@@ -15,7 +15,8 @@ class CreateRecurrentTransactionsTable extends Migration
     {
         Schema::create('recurrent_transactions', function (Blueprint $table) {
             $table->increments('id');
-            $table->json('days');
+            $table->json('days')->nullable();
+            $table->tinyInteger('installments')->nullable();
             $table->json('transaction_template');
             $table->timestamp('start_at')->useCurrent();
             $table->timestamp('end_at')->nullable();
